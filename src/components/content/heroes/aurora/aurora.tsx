@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import React from 'react';
 
 import AuroraBlurredBackgroundA from '../../../../assets/images/aurora/bg-blur-a.png';
@@ -27,10 +26,27 @@ export enum WeatherType {
 
 interface AuroraBackgroundProps {
   source: string;
+  weather?: WeatherType;
 }
 
 const AuroraBackground = styled.div<AuroraBackgroundProps>`
-  background-color: #202840;
+  background-color: ${(props) => {
+    console.log('Weather (from aurora background):', props.weather);
+    switch (props.weather) {
+      case WeatherType.Sunny:
+        console.log('Weather is sunny');
+        return '#3E61EE';
+      case WeatherType.Rainy:
+        return '#9BA3BB';
+      case WeatherType.Snowy:
+        return '#202840';
+      case WeatherType.Cloudy:
+        return '#202840';
+      default:
+        console.log('Weather is not set');
+        return '#202840';
+    }
+  }};
   position: absolute;
 
   background-image: url(${(props) => props.source});
@@ -80,7 +96,7 @@ export const Aurora = ({ type, weather, className }: AuroraProps) => {
   console.log('Weather (from aurora):', weather);
   return (
     <AuroraContainer className={className}>
-      <AuroraBackground source={getSource(type)} />
+      <AuroraBackground source={getSource(type)} weather={weather} />
       <AuroraForeground>
         <Flare
           opacity={0.6}
