@@ -15,9 +15,14 @@ export enum AuroraType {
   Pink = 'pink',
   Blue = 'blue',
   BrightBlue = 'bright-blue',
-  Rainy = 'Rainy',
+}
+
+export enum WeatherType {
   Sunny = 'Sunny',
   Cloudy = 'Cloudy',
+  Rainy = 'Rainy',
+  Snowy = 'Snowy',
+  NotSet = 'Not set',
 }
 
 interface AuroraBackgroundProps {
@@ -56,9 +61,10 @@ const AuroraContainer = styled.div`
 export interface AuroraProps {
   type?: AuroraType;
   className?: string;
+  weather?: WeatherType;
 }
 
-export const Aurora = ({ type, className }: AuroraProps) => {
+export const Aurora = ({ type, weather, className }: AuroraProps) => {
   function getSource(type?: AuroraType) {
     if (type === AuroraType.Pink) {
       return AuroraBlurredBackgroundB;
@@ -70,6 +76,8 @@ export const Aurora = ({ type, className }: AuroraProps) => {
     // default is the bright blue
     return AuroraBlurredBackgroundA;
   }
+
+  console.log('Weather (from aurora):', weather);
   return (
     <AuroraContainer className={className}>
       <AuroraBackground source={getSource(type)} />
