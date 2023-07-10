@@ -31,10 +31,8 @@ interface AuroraBackgroundProps {
 
 const AuroraBackground = styled.div<AuroraBackgroundProps>`
   background-color: ${(props) => {
-    console.log('Weather (from aurora background):', props.weather);
     switch (props.weather) {
       case WeatherType.Sunny:
-        console.log('Weather is sunny');
         return '#3E61EE';
       case WeatherType.Rainy:
         return '#9BA3BB';
@@ -43,7 +41,6 @@ const AuroraBackground = styled.div<AuroraBackgroundProps>`
       case WeatherType.Cloudy:
         return '#202840';
       default:
-        console.log('Weather is not set');
         return '#202840';
     }
   }};
@@ -93,7 +90,6 @@ export const Aurora = ({ type, weather, className }: AuroraProps) => {
     return AuroraBlurredBackgroundA;
   }
 
-  console.log('Weather (from aurora):', weather);
   return (
     <AuroraContainer className={className}>
       <AuroraBackground source={getSource(type)} weather={weather} />
