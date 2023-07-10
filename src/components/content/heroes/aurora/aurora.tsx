@@ -15,6 +15,9 @@ export enum AuroraType {
   Pink = 'pink',
   Blue = 'blue',
   BrightBlue = 'bright-blue',
+  Rainy = 'Rainy',
+  Sunny = 'Sunny',
+  Cloudy = 'Cloudy',
 }
 
 interface AuroraBackgroundProps {
