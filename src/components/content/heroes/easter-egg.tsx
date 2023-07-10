@@ -39,12 +39,23 @@ const EasterEgg = ({ auroraType }: AuroraHeroProps) => {
     setWeather(weatherData as WeatherType);
   };
 
+  const deactivateEasterEgg = () => {
+    setWeather(WeatherType.NotSet);
+  };
+
+  const toggleEasterEgg = () => {
+    if (weather === WeatherType.NotSet) {
+      activateEasterEgg();
+    } else {
+      deactivateEasterEgg();
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // Check if the shortcut is pressed (Ctrl + Alt + Shift)
-      console.log('Key pressed:', event.key);
       if (event.ctrlKey && event.altKey && event.shiftKey) {
-        activateEasterEgg();
+        toggleEasterEgg();
       }
     };
 
@@ -55,7 +66,7 @@ const EasterEgg = ({ auroraType }: AuroraHeroProps) => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []); // Empty dependency array ensures the effect runs only once
+  }, [weather]);
 
   return (
     <div>
