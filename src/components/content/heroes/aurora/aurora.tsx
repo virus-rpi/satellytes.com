@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import React, { useEffect, useState } from 'react';
-import { getWeather } from './weather-api';
+import React from 'react';
 
 import AuroraBlurredBackgroundA from '../../../../assets/images/aurora/bg-blur-a.png';
 import AuroraBlurredBackgroundB from '../../../../assets/images/aurora/bg-blur-b.png';
@@ -16,14 +15,6 @@ export enum AuroraType {
   Pink = 'pink',
   Blue = 'blue',
   BrightBlue = 'bright-blue',
-}
-
-export enum WeatherType {
-  Sunny = 'Sunny',
-  Cloudy = 'Cloudy',
-  Rainy = 'Rainy',
-  Snowy = 'Snowy',
-  NotSet = 'Not set',
 }
 
 interface AuroraBackgroundProps {
@@ -65,29 +56,6 @@ export interface AuroraProps {
 }
 
 export const Aurora = ({ type, className }: AuroraProps) => {
-  const [weather, setWeather] = useState(WeatherType.NotSet);
-
-  const toggleWeather = async () => {
-    if (weather === WeatherType.NotSet) {
-      setWeather(await getWeather());
-    } else {
-      setWeather(WeatherType.NotSet);
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.altKey && event.shiftKey) {
-        toggleWeather();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  });
   function getSource(type?: AuroraType) {
     if (type === AuroraType.Pink) {
       return AuroraBlurredBackgroundB;
