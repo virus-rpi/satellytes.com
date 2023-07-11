@@ -12,6 +12,6 @@ async function getWeather() {
     return response.data.current.condition.text;
   } catch (error) {
     console.error('Error fetching weather:', error);
-    throw new Error('Unable to fetch weather information.');
+    return "Not Set";
   }
 }
