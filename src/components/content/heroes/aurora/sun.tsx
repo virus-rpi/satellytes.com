@@ -39,13 +39,20 @@ export const AuroraSun = () => {
 
   useEffect(() => {
     const fetchData = async () => await getSunTime();
-    const time = fetchData();
-    time.then((value) => {
+    fetchData().then((value) => {
       setSunrise(value.sunriseTime);
       setSunset(value.sunsetTime);
     });
     setTime(getSunlightPercentage(sunrise, sunset));
-  });
+
+    const interval = setInterval(() => {
+      setTime(getSunlightPercentage(sunrise, sunset));
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return <AuroraSunDiv timePercent={time} />;
 };
