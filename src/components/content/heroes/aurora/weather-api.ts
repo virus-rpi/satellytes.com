@@ -16,6 +16,25 @@ export async function getWeather() {
   }
 }
 
+export async function getSunTime() {
+  const time = new Date();
+
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/astronomy.json?key=${API_KEY}&q=auto:ip`,
+    );
+    const { sunrise, sunset } = response.data.astronomy.astro;
+
+    return {
+      sunriseTime: new Date(`${time.toISOString().slice(0, 10)} ${sunrise}`),
+      sunsetTime: new Date(`${time.toISOString().slice(0, 10)} ${sunset}`),
+    };
+  } catch (error) {
+    console.error('Error retrieving weather data:', error);
+    return { sunriseTime: time, sunsetTime: time };
+  }
+}
+
 export function getWeatherDescription(conditionCode) {
   const weatherTypeMap = {
     '1000-1003': WeatherType.Sunny,
