@@ -105,7 +105,7 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
               top: '-75px',
               animationDelay: `${drop.delay}s`,
             }}
-            size={-30 * (drop.speed - 2) + 20}
+            size={Math.random() * 50 + 30}
           />
         ))}
       </>
