@@ -6,12 +6,11 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import { getSunTime } from './weather-api';
 
-export function getSunlightPercentage(sunriseTime, sunsetTime): number {
+function getSunlightPercentage(sunriseTime, sunsetTime) {
   const time = new Date();
 
-  const totalDaylightMinutes =
-    (sunsetTime.getTime() - sunriseTime.getTime()) / (1000 * 60);
-  const currentMinutes = (time.getTime() - sunriseTime.getTime()) / (1000 * 60);
+  const totalDaylightMinutes = (sunsetTime - sunriseTime) / (1000 * 60);
+  const currentMinutes = (time.getTime() - sunriseTime) / (1000 * 60);
   const sunlightPercentage = (currentMinutes / totalDaylightMinutes) * 100;
 
   return Math.round(sunlightPercentage);
@@ -81,16 +80,18 @@ const AuroraSunReflectionDiv = styled.div<{ timePercent: number }>`
 
 export const AuroraSun = () => {
   const [time, setTime] = useState(0);
-  const [sunrise, setSunrise] = useState(new Date());
-  const [sunset, setSunset] = useState(new Date());
+  const [sunrise, setSunrise] = useState(0);
+  const [sunset, setSunset] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => await getSunTime();
-    fetchData().then((value) => {
-      setSunrise(value.sunriseTime);
-      setSunset(value.sunsetTime);
-    });
-    setTime(getSunlightPercentage(sunrise, sunset));
+    const fetchData = async () => {
+      const { sunriseTime, sunsetTime } = await getSunTime();
+      setSunrise(sunriseTime);
+      setSunset(sunsetTime);
+      setTime(getSunlightPercentage(sunriseTime, sunsetTime));
+    };
+
+    fetchData();
 
     const interval = setInterval(() => {
       setTime(getSunlightPercentage(sunrise, sunset));

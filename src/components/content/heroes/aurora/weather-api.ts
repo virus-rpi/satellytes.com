@@ -26,12 +26,16 @@ export async function getSunTime() {
     const { sunrise, sunset } = response.data.astronomy.astro;
 
     return {
-      sunriseTime: new Date(`${time.toISOString().slice(0, 10)} ${sunrise}`),
-      sunsetTime: new Date(`${time.toISOString().slice(0, 10)} ${sunset}`),
+      sunriseTime: new Date(
+        `${time.toISOString().slice(0, 10)} ${sunrise}`,
+      ).getTime(),
+      sunsetTime: new Date(
+        `${time.toISOString().slice(0, 10)} ${sunset}`,
+      ).getTime(),
     };
   } catch (error) {
     console.error('Error retrieving weather data:', error);
-    return { sunriseTime: time, sunsetTime: time };
+    return { sunriseTime: 0, sunsetTime: 0 };
   }
 }
 
