@@ -1,5 +1,5 @@
 import SUN from '../../../../assets/images/aurora/sun.png';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { getSunTime } from './weather-api';
@@ -14,6 +14,15 @@ export function getSunlightPercentage(sunriseTime, sunsetTime): number {
 
   return Math.round(sunlightPercentage);
 }
+
+const rotatingAnimation = keyframes`
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+`;
 
 const AuroraSunDiv = styled.div<{ timePercent: number }>`
   background-image: url(${SUN});
@@ -30,6 +39,7 @@ const AuroraSunDiv = styled.div<{ timePercent: number }>`
   display: inline-block;
   width: 837px;
   height: 640px;
+  animation: ${rotatingAnimation} 60s linear infinite;
 `;
 
 export const AuroraSun = () => {
