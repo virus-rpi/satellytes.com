@@ -24,10 +24,10 @@ const swayAnimation = keyframes`
   }
 `;
 
-const Raindrop = styled.div<{ color: string; speed: number }>`
+const Raindrop = styled.div<{ color: string; speed: number; size: number }>`
   position: absolute;
   width: 3px;
-  height: 50px;
+  height: ${(props) => props.size}px;
   border-radius: 150%;
   background-color: ${(props) => props.color};
   animation: ${fallAnimation} ${(props) => props.speed}s linear infinite;
@@ -105,6 +105,7 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
               top: '-75px',
               animationDelay: `${drop.delay}s`,
             }}
+            size={-30 * (drop.speed - 2) + 20}
           />
         ))}
       </>
