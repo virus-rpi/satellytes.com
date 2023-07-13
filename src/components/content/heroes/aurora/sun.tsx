@@ -1,4 +1,6 @@
 import SUN from '../../../../assets/images/aurora/sun.png';
+import SUNREFLECTION from '../../../../assets/images/aurora/sun-reflection.png';
+import SUNSHINE from '../../../../assets/images/aurora/sun-shine.png';
 import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -24,22 +26,57 @@ const rotatingAnimation = keyframes`
     }
 `;
 
+const AuroraSunShineDiv = styled.div`
+  background-image: url(${SUNSHINE});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: ${rotatingAnimation} 60s linear infinite;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  top: -50%;
+  position: absolute;
+`;
+
 const AuroraSunDiv = styled.div<{ timePercent: number }>`
-  background-image: url(${SUN});
-  left: calc(${(props) => props.timePercent}% - 418.5px);
+  left: calc(${(props) => props.timePercent}% - 167.5px);
   bottom: calc(
     ${(props) =>
-        (1 / 50) * (-(props.timePercent - 50) * (props.timePercent - 50)) +
-        50}% - 200px
+      (1 / 125) * (-(props.timePercent - 50) * (props.timePercent - 50)) + 60}%
   );
   position: absolute;
+  background-image: url(${SUN});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   display: inline-block;
-  width: 837px;
-  height: 640px;
-  animation: ${rotatingAnimation} 60s linear infinite;
+  width: 335px;
+  height: 335px;
+`;
+
+const AuroraSunReflectionDiv = styled.div<{ timePercent: number }>`
+  background-image: url(${SUNREFLECTION});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  width: 549.5px;
+  height: 539px;
+  left: calc(
+    ${(props) => props.timePercent}% +
+      ${(props) => (props.timePercent - 50) / 2}% - 274.75px
+  );
+  bottom: calc(
+    ${(props) =>
+        (1 / 350) *
+          -Math.pow(
+            (props.timePercent + (props.timePercent - 50) / 2) * 2 - 100,
+            2,
+          ) +
+        60}% - 100px
+  );
+  position: absolute;
 `;
 
 export const AuroraSun = () => {
@@ -64,5 +101,12 @@ export const AuroraSun = () => {
     };
   }, []);
 
-  return <AuroraSunDiv timePercent={time} />;
+  return (
+    <>
+      <AuroraSunDiv timePercent={time}>
+        <AuroraSunShineDiv />
+      </AuroraSunDiv>
+      <AuroraSunReflectionDiv timePercent={time} />
+    </>
+  );
 };
