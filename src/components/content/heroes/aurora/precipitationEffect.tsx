@@ -106,7 +106,7 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
               top: '-75px',
               animationDelay: `${drop.delay}s`,
             }}
-            blur={Math.random() > 0.8 ? 0 : Math.random() * 2}
+            blur={Math.random() > 0.7 ? 0 : Math.random() * 3}
           />
         ))}
       </>
