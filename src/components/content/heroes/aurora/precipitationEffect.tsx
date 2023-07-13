@@ -24,13 +24,14 @@ const swayAnimation = keyframes`
   }
 `;
 
-const Raindrop = styled.div<{ color: string; speed: number; size: number }>`
+const Raindrop = styled.div<{ color: string; speed: number; blur: number }>`
   position: absolute;
   width: 3px;
-  height: ${(props) => props.size}px;
+  height: 50px;
   border-radius: 150%;
   background-color: ${(props) => props.color};
   animation: ${fallAnimation} ${(props) => props.speed}s linear infinite;
+  filter: blur(${(props) => props.blur}px);
 `;
 
 const Snowflake = styled.div<{ speed: number; size: number }>`
@@ -47,7 +48,7 @@ const Snowflake = styled.div<{ speed: number; size: number }>`
     rgba(255, 255, 255, 0.8) 85.94%,
     #fffcde 100%
   );
-  filter: blur(2px);
+  filter: blur(2px), motion-blur(10px, 0deg);
 `;
 const SnowflakeContainer = styled.div<{ speed: number }>`
   animation: ${fallAnimation} ${(props) => props.speed}s linear infinite;
@@ -105,7 +106,7 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
               top: '-75px',
               animationDelay: `${drop.delay}s`,
             }}
-            size={Math.random() * 50 + 30}
+            blur={Math.random() > 0.8 ? 0 : Math.random() * 2}
           />
         ))}
       </>
