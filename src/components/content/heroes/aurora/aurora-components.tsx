@@ -34,7 +34,7 @@ export const AuroraBackground = styled.div<AuroraBackgroundProps>`
       case WeatherType.Sunny:
         return '#3E61EE';
       case WeatherType.Rainy:
-        return '#9BA3BB';
+        return '#76809b';
       case WeatherType.Snowy:
       case WeatherType.Cloudy:
       case WeatherType.NotSet:
@@ -86,7 +86,7 @@ export const AuroraRainyFlareColor2 = styled.div`
   width: 970px;
   height: 970px;
   border-radius: 970px;
-  background: linear-gradient(180deg, #2a275f 0%, #535364 100%);
+  background: linear-gradient(180deg, #302c70 0%, #47475d 100%);
   filter: blur(125px);
   position: absolute;
 `;
@@ -100,7 +100,7 @@ export const AuroraRainyFlareColor3 = styled.div`
   background: linear-gradient(
     180deg,
     #4d79ff 0%,
-    rgba(77, 121, 255, 0.15) 100%
+    rgba(65, 115, 253, 0.27) 100%
   );
   filter: blur(125px);
   position: absolute;
@@ -112,7 +112,7 @@ export const AuroraRainyFlareColor4 = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #110f31 0%, rgba(77, 121, 255, 0.15) 90%);
+  background: linear-gradient(180deg, #231f67 0%, rgba(77, 121, 255, 0.27) 90%);
   position: absolute;
 `;
 
@@ -123,7 +123,7 @@ export const AuroraSnowyFlareColor1 = styled.div`
   height: 100%;
   background: linear-gradient(
     0deg,
-    rgba(99, 93, 224, 0.6) 0%,
+    rgba(73, 67, 203, 0.6) 0%,
     rgba(77, 121, 255, 0) 90%
   );
   position: absolute;
@@ -190,7 +190,7 @@ export const flaresByWeather: { [key in WeatherType] } = {
     <>
       <AuroraSnowyFlareColor1 />
       <PrecipitationEffect
-        dropCount={100}
+        dropCount={50}
         speed={10}
         type={PrecipitationType.Snow}
         speedDeviation={3}
