@@ -123,7 +123,7 @@ export const AuroraSnowyFlareColor1 = styled.div`
   height: 100%;
   background: linear-gradient(
     0deg,
-    rgba(99, 93, 224, 0.6) 0%,
+    rgba(73, 67, 203, 0.6) 0%,
     rgba(77, 121, 255, 0) 90%
   );
   position: absolute;
@@ -190,7 +190,7 @@ export const flaresByWeather: { [key in WeatherType] } = {
     <>
       <AuroraSnowyFlareColor1 />
       <PrecipitationEffect
-        dropCount={100}
+        dropCount={50}
         speed={10}
         type={PrecipitationType.Snow}
         speedDeviation={3}
