@@ -17,21 +17,20 @@ export async function getWeather() {
 }
 
 export async function getSunTime() {
-  const time = new Date();
-
   try {
     const response = await axios.get(
       `${BASE_URL}/astronomy.json?key=${API_KEY}&q=auto:ip`,
     );
     const { sunrise, sunset } = response.data.astronomy.astro;
+    console.log('sunrise', sunrise);
+    console.log('sunset', sunset);
+
+    const sunriseTime = convertTimeStringToTimestamp(sunrise);
+    const sunsetTime = convertTimeStringToTimestamp(sunset);
 
     return {
-      sunriseTime: new Date(
-        `${time.toISOString().slice(0, 10)} ${sunrise}`,
-      ).getTime(),
-      sunsetTime: new Date(
-        `${time.toISOString().slice(0, 10)} ${sunset}`,
-      ).getTime(),
+      sunriseTime,
+      sunsetTime,
     };
   } catch (error) {
     console.error('Error retrieving weather data:', error);
@@ -68,4 +67,27 @@ export function getWeatherDescription(conditionCode) {
   }
 
   return WeatherType.NotSet;
+}
+
+export function convertTimeStringToTimestamp(timeString) {
+  const [time, period] = timeString.split(' ');
+  const [hours, minutes] = time.split(':');
+
+  let hours24 = parseInt(hours);
+  if (period.toLowerCase() === 'pm' && hours24 !== 12) {
+    hours24 += 12;
+  } else if (period.toLowerCase() === 'am' && hours24 === 12) {
+    hours24 = 0;
+  }
+
+  const currentDate = new Date();
+  const newDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate(),
+    hours24,
+    parseInt(minutes),
+  );
+
+  return newDate.getTime();
 }

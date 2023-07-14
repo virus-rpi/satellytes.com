@@ -5,16 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { getSunTime } from './weather-api';
-
-function getSunlightPercentage(sunriseTime, sunsetTime) {
-  const time = new Date();
-
-  const totalDaylightMinutes = (sunsetTime - sunriseTime) / (1000 * 60);
-  const currentMinutes = (time.getTime() - sunriseTime) / (1000 * 60);
-  const sunlightPercentage = (currentMinutes / totalDaylightMinutes) * 100;
-
-  return Math.round(sunlightPercentage);
-}
+import { getSunlightPercentage } from './sun-percentage-calculator';
 
 const rotatingAnimation = keyframes`
     0% {
