@@ -8,8 +8,8 @@ import {
   AuroraBackground,
 } from './aurora-components';
 import React from 'react';
-import { useWeather } from './weather-easter-egg/use-weather';
 import EasterEggs from './easter-eggs';
+import { useWeather } from './weather-easter-egg/use-weather';
 
 export interface AuroraProps {
   type?: AuroraType;
@@ -17,6 +17,8 @@ export interface AuroraProps {
 }
 
 export const Aurora = ({ type, className }: AuroraProps) => {
+  const { weather } = useWeather();
+  console.log('weather here', weather);
   const getSource = (type?: AuroraType) => {
     if (type === AuroraType.Pink) {
       return AuroraBlurredBackgroundB;
@@ -30,7 +32,7 @@ export const Aurora = ({ type, className }: AuroraProps) => {
   };
   return (
     <AuroraContainer className={className}>
-      <AuroraBackground source={getSource(type)} weather={useWeather()} />
+      <AuroraBackground source={getSource(type)} weather={weather} />
       <AuroraForeground>
         <AuroraForeground>
           <EasterEggs />

@@ -6,26 +6,17 @@ import PrecipitationEffect, {
   PrecipitationType,
 } from './weather-easter-egg/precipitation-effect';
 import React from 'react';
+import { customBackground } from './weather-easter-egg/weather-easter-egg';
 
 const BACKGROUND_LAYER_Z = -2;
 const FOREGROUND_LAYER_Z = -1;
 
 interface AuroraBackgroundProps {
   source: string;
-  weather: WeatherType;
+  customBackground: any;
 }
 
-export const AuroraBackground = styled.div<AuroraBackgroundProps>`
-  background: ${(props) => {
-    switch (props.weather) {
-      case WeatherType.Sunny:
-        return '#3E61EE';
-      case WeatherType.Rainy:
-        return '#9BA3BB';
-      default:
-        return '#202840';
-    }
-  }};
+export const AuroraBackground = styled.div<AuroraBackgroundProps & any>`
   position: absolute;
   z-index: ${BACKGROUND_LAYER_Z};
   left: 0;
@@ -33,14 +24,17 @@ export const AuroraBackground = styled.div<AuroraBackgroundProps>`
   bottom: 0;
   top: 0;
   ${(props) =>
-    props.weather === WeatherType.NotSet
+    customBackground(props.weather) === null
       ? css`
+          background-color: #202840;
           background-image: url(${props.source});
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center -20vw;
         `
-      : ''}
+      : css`
+          background-color: ${customBackground(props.weather)};
+        `}
 `;
 
 export const AuroraForeground = styled.div`

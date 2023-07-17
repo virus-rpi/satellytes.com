@@ -11,24 +11,45 @@ declare const require: {
   };
 };
 
+interface EasterEggModule {
+  [key: string]: any;
+}
+
 const useEasterEggs = () => {
   const [easterEggs, setEasterEggs] = useState<any[]>([]);
   const [enabledEasterEggs, setEnabledEasterEggs] = useState<any[]>([]);
+  const [easterEggBackgrounds, setEasterEggBackgrounds] = useState<any>({});
 
   useEffect(() => {
     const importEasterEggs = async () => {
-      const folders = require.context('.', true, /easter-egg.*\/[^/]+\.jsx?$/);
+      const folders = require.context(
+        '.',
+        true,
+        /\/([^-]+)-easter-egg\/\1-easter-egg\.tsx$/,
+      );
       const files = folders.keys();
 
       for (const file of files) {
-        const module: any = await folders(file);
-        const defaultExport = module.default;
+        const module: EasterEggModule = await folders(file);
 
-        if (
-          typeof defaultExport === 'function' &&
-          defaultExport.prototype.isReactComponent
-        ) {
-          setEasterEggs((prevEasterEggs) => [...prevEasterEggs, defaultExport]);
+        const filteredFunctions = Object.values(module).filter(
+          (value: any) =>
+            typeof value === 'function' && value.name.includes('EasterEgg'),
+        );
+
+        for (const func of filteredFunctions) {
+          if (easterEggs.find((easterEgg) => easterEgg.name === func.name)) {
+            continue;
+          }
+          setEasterEggs((prevEasterEggs) => [...prevEasterEggs, func]);
+
+          const customBackground = module[`${func.name}CustomBackground`];
+          if (customBackground) {
+            setEasterEggBackgrounds((prevBackgrounds) => ({
+              ...prevBackgrounds,
+              [func.name]: customBackground,
+            }));
+          }
         }
       }
     };
@@ -39,6 +60,9 @@ const useEasterEggs = () => {
   }, []);
 
   const enableEasterEgg = (name: string) => {
+    if (enabledEasterEggs.includes(name)) {
+      return;
+    }
     setEnabledEasterEggs((prevEnabledEasterEggs) => [
       ...prevEnabledEasterEggs,
       name,
@@ -57,12 +81,23 @@ const useEasterEggs = () => {
     return enabledEasterEggs.includes(name);
   };
 
+  const getCustomBackground = () => {
+    for (const easterEgg of enabledEasterEggs) {
+      const background = easterEggBackgrounds[easterEgg];
+      if (background) {
+        return background();
+      }
+    }
+    return null;
+  };
+
   return {
     easterEggs,
     enableEasterEgg,
     disableEasterEgg,
     isEasterEggEnabled,
     enabledEasterEggs,
+    getCustomBackground,
   };
 };
 
