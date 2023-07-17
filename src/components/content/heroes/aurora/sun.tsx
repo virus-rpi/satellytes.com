@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import { getSunTime } from './weather-api';
 import { getSunlightPercentage } from './sun-percentage-calculator';
+import { Flare, FlareType } from './flare';
 
 const rotatingAnimation = keyframes`
     0% {
@@ -96,10 +97,30 @@ export const AuroraSun = () => {
 
   return (
     <>
-      <AuroraSunDiv timePercent={time}>
-        <AuroraSunShineDiv />
-      </AuroraSunDiv>
-      <AuroraSunReflectionDiv timePercent={time} />
+      <>
+        <AuroraSunDiv timePercent={time}>
+          <AuroraSunShineDiv />
+        </AuroraSunDiv>
+        <AuroraSunReflectionDiv timePercent={time} />
+      </>
+      <Flare
+        stepSize={0}
+        flareType={FlareType.LIGHT}
+        x={'70vw'}
+        y={'300px'}
+        size={100}
+        rotation={80}
+        animationOffset={14}
+      />
+      <Flare
+        stepSize={20}
+        flareType={FlareType.LIGHT}
+        x={'50vw'}
+        y={'50vw'}
+        size={150}
+        rotation={30}
+        animationOffset={3}
+      />
     </>
   );
 };
