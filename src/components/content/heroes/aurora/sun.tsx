@@ -71,7 +71,7 @@ const AuroraSunReflectionDiv = styled.div<{ timePercent: number }>`
   position: absolute;
 `;
 
-export const AuroraSun = () => {
+export const Sun = () => {
   const [time, setTime] = useState(0);
   const [sunrise, setSunrise] = useState(0);
   const [sunset, setSunset] = useState(0);
@@ -98,12 +98,10 @@ export const AuroraSun = () => {
 
   return (
     <>
-      <>
-        <AuroraSunDiv timePercent={time}>
-          <AuroraSunShineDiv />
-        </AuroraSunDiv>
-        <AuroraSunReflectionDiv timePercent={time} />
-      </>
+      <AuroraSunDiv timePercent={time}>
+        <AuroraSunShineDiv />
+      </AuroraSunDiv>
+      <AuroraSunReflectionDiv timePercent={time} />
       <Flare
         stepSize={0}
         flareType={FlareType.LIGHT}
