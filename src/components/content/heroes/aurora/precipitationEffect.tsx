@@ -24,16 +24,22 @@ const swayAnimation = keyframes`
   }
 `;
 
-const Raindrop = styled.div<{ color: string; speed: number }>`
+const Raindrop = styled.div<{ color: string; speed: number; blur: number }>`
   position: absolute;
-  width: 3px;
+  width: 4px;
   height: 50px;
   border-radius: 150%;
   background-color: ${(props) => props.color};
   animation: ${fallAnimation} ${(props) => props.speed}s linear infinite;
+  filter: blur(${(props) => props.blur}px);
 `;
 
-const Snowflake = styled.div<{ speed: number; size: number }>`
+const Snowflake = styled.div<{
+  speed: number;
+  size: number;
+  blur: number;
+  transparency: number;
+}>`
   position: absolute;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
@@ -42,13 +48,14 @@ const Snowflake = styled.div<{ speed: number; size: number }>`
     infinite alternate;
   background: radial-gradient(
     50% 50% at 50% 50%,
-    #fff 0%,
-    #fff 20.83%,
-    rgba(255, 255, 255, 0.8) 85.94%,
-    #fffcde 100%
+    rgba(255, 255, 255, ${(props) => props.transparency}) 0%,
+    rgba(255, 255, 255, ${(props) => props.transparency}) 20.83%,
+    rgba(255, 255, 255, ${(props) => props.transparency * 0.8}) 85.94%,
+    rgba(255, 252, 222, ${(props) => props.transparency}) 100%
   );
-  filter: blur(2px);
+  filter: blur(${(props) => props.blur}px);
 `;
+
 const SnowflakeContainer = styled.div<{ speed: number }>`
   animation: ${fallAnimation} ${(props) => props.speed}s linear infinite;
   position: absolute;
@@ -75,7 +82,7 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
     const generateDrops = () => {
       const newDrops = Array.from({ length: dropCount }, (_, index) => ({
         id: index,
-        color: '#76a5d2',
+        color: '#84abd0',
         speed:
           speed + (Math.random() * (speedDeviation * 2) - speedDeviation) || 1,
         delay: Math.random() * 5,
@@ -105,6 +112,7 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
               top: '-75px',
               animationDelay: `${drop.delay}s`,
             }}
+            blur={Math.random() > 0.7 ? 0 : Math.random() * 3}
           />
         ))}
       </>
@@ -125,12 +133,14 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
             <Snowflake
               key={snowflake.id}
               speed={snowflake.speed}
-              size={(snowflake.speed * 5 - snowflake.speed * 3) * 1.75}
+              size={(snowflake.speed * 5 - snowflake.speed * 3) * 1.5}
               style={{
                 left: `${snowflake.left}%`,
                 top: '-75px',
                 animationDelay: `${snowflake.delay}s`,
               }}
+              blur={Math.random() > 0.7 ? 0 : Math.random() * 5}
+              transparency={Math.random() > 0.3 ? 1 : Math.random()}
             />
           </SnowflakeContainer>
         ))}
