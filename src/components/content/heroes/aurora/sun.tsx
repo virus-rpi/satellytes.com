@@ -1,5 +1,5 @@
 import SUN from '../../../../assets/images/aurora/sun.png';
-import SUNREFLECTION from '../../../../assets/images/aurora/sun-reflection.png';
+import REFLECTION from '../../../../assets/images/aurora/sun-reflection.png';
 import SUNSHINE from '../../../../assets/images/aurora/sun-shine.png';
 import styled, { keyframes } from 'styled-components';
 import { useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ const AuroraSunDiv = styled.div<{ timePercent: number }>`
 `;
 
 const AuroraSunReflectionDiv = styled.div<{ timePercent: number }>`
-  background-image: url(${SUNREFLECTION});
+  background-image: url(${REFLECTION});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -82,16 +82,19 @@ export const AuroraSun = () => {
       setTime(getSunlightPercentage(sunriseTime, sunsetTime));
     };
 
-    fetchData();
+    if (sunrise === 0 || sunset === 0)
+      fetchData().catch((e) => console.error(e));
+    console.log({ sunrise, sunset, time });
 
     const interval = setInterval(() => {
       setTime(getSunlightPercentage(sunrise, sunset));
+      console.log({ sunrise, sunset, time });
     }, 10000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [sunset, sunrise, time]);
 
   return (
     <>

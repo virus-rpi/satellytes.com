@@ -85,9 +85,8 @@ export function convertTimeStringToTimestamp(timeString) {
     currentDate.getFullYear(),
     currentDate.getMonth(),
     currentDate.getDate(),
-    hours24,
+    hours24 + 2,
     parseInt(minutes),
   );
-
   return newDate.getTime();
 }
