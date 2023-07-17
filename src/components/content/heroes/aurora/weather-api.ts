@@ -78,13 +78,12 @@ export function convertTimeStringToTimestamp(timeString) {
     hours24 = 0;
   }
 
-  const timezoneOffset = new Date().getTimezoneOffset() / 60;
   const currentDate = new Date();
   const newDate = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
     currentDate.getDate(),
-    hours24 - timezoneOffset,
+    hours24,
     parseInt(minutes),
   );
   return newDate.getTime();

@@ -90,8 +90,8 @@ describe('getSunTime', () => {
       data: responseData,
     } as AxiosResponse);
 
-    const expectedSunriseTime = new Date('2023-07-14T06:00:00.000Z').getTime();
-    const expectedSunsetTime = new Date('2023-07-14T18:00:00.000Z').getTime();
+    const expectedSunriseTime = convertTimeStringToTimestamp('06:00 AM');
+    const expectedSunsetTime = convertTimeStringToTimestamp('06:00 PM');
 
     const result = await getSunTime();
 
