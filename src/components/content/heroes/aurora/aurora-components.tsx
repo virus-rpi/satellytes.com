@@ -4,6 +4,7 @@ import { Flare, FlareType } from './flare';
 import { Clouds } from './clouds';
 import PrecipitationEffect, { PrecipitationType } from './precipitation-effect';
 import React from 'react';
+import { DefaultFlares } from './default-flares';
 
 const BACKGROUND_LAYER_Z = -2;
 const FOREGROUND_LAYER_Z = -1;
@@ -179,6 +180,7 @@ export const flaresByWeather: { [key in WeatherType] } = {
         rotation={80}
         animationOffset={14}
       />
+      <DefaultFlares />
     </>
   ),
 };
