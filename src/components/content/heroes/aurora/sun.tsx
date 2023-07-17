@@ -84,11 +84,9 @@ export const AuroraSun = () => {
 
     if (sunrise === 0 || sunset === 0)
       fetchData().catch((e) => console.error(e));
-    console.log({ sunrise, sunset, time });
 
     const interval = setInterval(() => {
       setTime(getSunlightPercentage(sunrise, sunset));
-      console.log({ sunrise, sunset, time });
     }, 10000);
 
     return () => {

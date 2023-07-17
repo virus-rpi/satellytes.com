@@ -22,8 +22,6 @@ export async function getSunTime() {
       `${BASE_URL}/astronomy.json?key=${API_KEY}&q=auto:ip`,
     );
     const { sunrise, sunset } = response.data.astronomy.astro;
-    console.log('sunrise', sunrise);
-    console.log('sunset', sunset);
 
     const sunriseTime = convertTimeStringToTimestamp(sunrise);
     const sunsetTime = convertTimeStringToTimestamp(sunset);
@@ -80,12 +78,13 @@ export function convertTimeStringToTimestamp(timeString) {
     hours24 = 0;
   }
 
+  const timezoneOffset = new Date().getTimezoneOffset() / 60;
   const currentDate = new Date();
   const newDate = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
     currentDate.getDate(),
-    hours24 + 2,
+    hours24 - timezoneOffset,
     parseInt(minutes),
   );
   return newDate.getTime();
