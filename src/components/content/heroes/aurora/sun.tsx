@@ -7,6 +7,7 @@ import React from 'react';
 import { getSunTime } from './weather-api';
 import { getSunlightPercentage } from './sun-percentage-calculator';
 import { Flare, FlareType } from './flare';
+import { DefaultFlares } from './default-flares';
 
 const rotatingAnimation = keyframes`
     0% {
@@ -121,6 +122,7 @@ export const AuroraSun = () => {
         rotation={30}
         animationOffset={3}
       />
+      <DefaultFlares />
     </>
   );
 };
