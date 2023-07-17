@@ -6,6 +6,7 @@ import PrecipitationEffect, { PrecipitationType } from './precipitation-effect';
 import React from 'react';
 import { DefaultFlares } from './default-flares';
 import { AuroraSun } from './sun';
+import { Snow } from './snow';
 
 const BACKGROUND_LAYER_Z = -2;
 const FOREGROUND_LAYER_Z = -1;
@@ -63,19 +64,6 @@ export const AuroraRainyFlareColor = styled.div`
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg, #231f67 0%, rgba(77, 121, 255, 0.27) 90%);
-  position: absolute;
-`;
-
-export const AuroraSnowyFlareColor = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    0deg,
-    rgba(73, 67, 203, 0.6) 0%,
-    rgba(77, 121, 255, 0) 90%
-  );
   position: absolute;
 `;
 
@@ -141,17 +129,7 @@ export const flaresByWeather: { [key in WeatherType] } = {
       />
     </>
   ),
-  [WeatherType.Snowy]: (
-    <>
-      <AuroraSnowyFlareColor />
-      <PrecipitationEffect
-        dropCount={50}
-        speed={10}
-        type={PrecipitationType.Snow}
-        speedDeviation={3}
-      />
-    </>
-  ),
+  [WeatherType.Snowy]: <Snow amount={50} />,
   [WeatherType.NotSet]: (
     <>
       <Flare
