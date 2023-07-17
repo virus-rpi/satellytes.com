@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
 import { WeatherType } from './aurora-types';
 import { Flare, FlareType } from './flare';
-import { Clouds } from './clouds';
-import PrecipitationEffect, { PrecipitationType } from './precipitation-effect';
+import { Clouds } from './weather-easter-egg/clouds';
+import PrecipitationEffect, {
+  PrecipitationType,
+} from './weather-easter-egg/precipitation-effect';
 import React from 'react';
 
 const BACKGROUND_LAYER_Z = -2;
