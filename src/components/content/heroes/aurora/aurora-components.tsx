@@ -1,8 +1,10 @@
 import styled, { css } from 'styled-components';
-import { WeatherType } from './aurora-types';
+import { WeatherType } from './weather-easter-egg/weather-types';
 import { Flare, FlareType } from './flare';
-import { Clouds } from './clouds';
-import PrecipitationEffect, { PrecipitationType } from './precipitation-effect';
+import { Clouds } from './weather-easter-egg/clouds';
+import PrecipitationEffect, {
+  PrecipitationType,
+} from './weather-easter-egg/precipitation-effect';
 import React from 'react';
 
 const BACKGROUND_LAYER_Z = -2;
@@ -77,7 +79,42 @@ export const AuroraSnowyFlareColor = styled.div`
   position: absolute;
 `;
 
-export const flaresByWeather: { [key in WeatherType] } = {
+export const DefaultFlares = () => (
+  <>
+    <Flare
+      opacity={0.5}
+      speedMultiplier={2}
+      stepSize={20}
+      flareType={FlareType.LIGHT}
+      x={'20vw'}
+      y={'90vh'}
+      size={550}
+      rotation={0}
+    />
+    <Flare
+      opacity={0.3}
+      stepSize={40}
+      flareType={FlareType.LIGHT}
+      x={'80vw'}
+      y={'20vw'}
+      size={250}
+      rotation={70}
+      animationOffset={7}
+    />
+    <Flare
+      opacity={0.6}
+      speedMultiplier={0.5}
+      stepSize={-80}
+      flareType={FlareType.LIGHT}
+      x={'20vw'}
+      y={'0vh'}
+      size={400}
+      rotation={180}
+    />
+  </>
+);
+
+export const foregroundByWeather: { [key in WeatherType] } = {
   [WeatherType.Sunny]: (
     <>
       <Flare
