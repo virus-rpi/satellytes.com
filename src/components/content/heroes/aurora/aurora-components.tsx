@@ -63,7 +63,7 @@ export const AuroraContainer = styled.div`
 export const flaresByWeather: { [key in WeatherType] } = {
   [WeatherType.Sunny]: <Sun />,
   [WeatherType.Cloudy]: <Clouds amount={20} type={CloudType.DARK} />,
-  [WeatherType.SlightlyCloudy]: <Clouds amount={5} type={CloudType.LIGHT} />,
+  [WeatherType.SlightlyCloudy]: <Clouds amount={10} type={CloudType.LIGHT} />,
   [WeatherType.Snowy]: <Snow amount={50} />,
   [WeatherType.Rainy]: <Rain amount={550} />,
   [WeatherType.NotSet]: (
