@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components';
 import { WeatherType } from './aurora-types';
+import { Flare, FlareType } from './flare';
 import { Clouds } from './weather-easter-egg/clouds';
 import React from 'react';
-import { DarkDefaultFlares } from './default-flares';
+import { DefaultFlares } from './default-flares';
 import { Snow } from './weather-easter-egg/snow';
 import { Rain } from './weather-easter-egg/rain';
 import { Sun } from './weather-easter-egg/sun';
@@ -62,5 +63,27 @@ export const flaresByWeather: { [key in WeatherType] } = {
   [WeatherType.Cloudy]: <Clouds amount={20} />,
   [WeatherType.Snowy]: <Snow amount={50} />,
   [WeatherType.Rainy]: <Rain amount={550} />,
-  [WeatherType.NotSet]: <DarkDefaultFlares />,
+  [WeatherType.NotSet]: (
+    <>
+      <Flare
+        stepSize={20}
+        flareType={FlareType.DARK}
+        x={'50vw'}
+        y={'50vw'}
+        size={150}
+        rotation={30}
+        animationOffset={3}
+      />
+      <Flare
+        stepSize={0}
+        flareType={FlareType.DARK}
+        x={'70vw'}
+        y={'300px'}
+        size={100}
+        rotation={80}
+        animationOffset={14}
+      />
+      <DefaultFlares />
+    </>
+  ),
 };
