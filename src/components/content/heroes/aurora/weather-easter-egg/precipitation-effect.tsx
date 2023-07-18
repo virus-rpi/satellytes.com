@@ -145,8 +145,8 @@ const PrecipitationEffect = ({ dropCount, speed, type, speedDeviation }) => {
                   top: '-75px',
                   animationDelay: `${snowflake.delay}s`,
                 }}
-                blur={Math.random() > 0.7 ? 0 : Math.random() * 5}
-                transparency={Math.random() > 0.3 ? 1 : Math.random()}
+                blur={Math.random() > 0.7 ? 0 : Math.random() * 5} // 30% of the snowflakes will have a blur between 0 and 5 px
+                transparency={Math.random() > 0.3 ? 1 : Math.random()} // 70% of the snowflakes will have a transparency between 0 and 1
               />
             </SnowflakeContainer>
           );
