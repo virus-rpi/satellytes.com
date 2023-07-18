@@ -1,6 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
+interface RaindropProps {
+  color: string;
+  speed: number;
+  blur: number;
+  left: number;
+  top: number;
+  animation_delay: number;
+}
+
+interface SnowflakeProps {
+  speed: number;
+  size: number;
+  animation: any;
+  blur: number;
+  transparency: number;
+  left: number;
+  top: number;
+  animation_delay: number;
+}
+
+interface SnowflakeContainerProps {
+  speed: number;
+  top: number;
+  left: number;
+  animation_delay: number;
+}
+
+interface PrecipitationData {
+  id: number;
+  color: string;
+  speed: number;
+  delay: number;
+  left: number;
+}
+
 const fallAnimation = keyframes`
   0% {
     transform: translateY(-75px);
@@ -26,14 +61,7 @@ const generateSwayAnimation = (initialX: number, range: number) => keyframes`
   }
 `;
 
-const Raindrop = styled.div<{
-  color: string;
-  speed: number;
-  blur: number;
-  left: number;
-  top: number;
-  animation_delay: number;
-}>`
+const Raindrop = styled.div<RaindropProps>`
   position: absolute;
   width: 4px;
   height: 50px;
@@ -46,16 +74,7 @@ const Raindrop = styled.div<{
   animation-delay: ${(props) => props.animation_delay}s;
 `;
 
-const Snowflake = styled.div<{
-  speed: number;
-  size: number;
-  animation: any;
-  blur: number;
-  transparency: number;
-  left: number;
-  top: number;
-  animation_delay: number;
-}>`
+const Snowflake = styled.div<SnowflakeProps>`
   animation-delay: ${(props) => props.animation_delay}s;
   top: ${(props) => props.top}px;
   left: ${(props) => props.left}%;
@@ -75,26 +94,13 @@ const Snowflake = styled.div<{
   filter: blur(${(props) => props.blur}px);
 `;
 
-const SnowflakeContainer = styled.div<{
-  speed: number;
-  top: number;
-  left: number;
-  animation_delay: number;
-}>`
+const SnowflakeContainer = styled.div<SnowflakeContainerProps>`
   animation: ${fallAnimation} ${(props) => props.speed}s linear infinite;
   position: absolute;
   top: ${(props) => props.top}px;
   left: ${(props) => props.left}%;
   animation-delay: ${(props) => props.animation_delay}s;
 `;
-
-interface PrecipitationData {
-  id: number;
-  color: string;
-  speed: number;
-  delay: number;
-  left: number;
-}
 
 export enum PrecipitationType {
   Rain = 'rain',
