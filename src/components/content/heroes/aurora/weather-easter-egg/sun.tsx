@@ -18,6 +18,37 @@ const rotatingAnimation = keyframes`
     }
 `;
 
+const backgroundAnimation = keyframes`
+  0% {
+    background-color(#000000);
+  }
+  5% {
+    background-color(#FF00007F);
+  }
+  10% {
+    background-color(#FF000000);
+  }
+  90% {
+    background-color(#FF000000);
+  }
+  95% {
+    background-color(#FF00007F);
+  }
+  100% {
+    background-color(#000000);
+  }
+`;
+
+const SunBackgroundDiv = styled.div`
+  animation: ${backgroundAnimation} 10s alternate infinite;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+`;
+
 const AuroraSunShineDiv = styled.div`
   background-image: url(${SUNSHINE});
   background-position: center;
@@ -101,6 +132,7 @@ export const Sun = () => {
 
   return (
     <>
+      <SunBackgroundDiv />
       <AuroraSunDiv timePercent={time}>
         <AuroraSunShineDiv />
       </AuroraSunDiv>
