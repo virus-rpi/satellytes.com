@@ -18,35 +18,48 @@ const rotatingAnimation = keyframes`
     }
 `;
 
-const backgroundAnimation = keyframes`
+const sunBackgroundAnimation = keyframes`
   0% {
-    background-color(#000000);
+    width: 500%;
+    height: 500%;
+    transform: translate(-25%, -25%);
   }
-  5% {
-    background-color(#FF00007F);
+  7% {
+    width: 0;
+    height: 0;
   }
-  10% {
-    background-color(#FF000000);
-  }
-  90% {
-    background-color(#FF000000);
-  }
-  95% {
-    background-color(#FF00007F);
+  93% {
+    width: 0;
+    height: 0;
   }
   100% {
-    background-color(#000000);
+    width: 500%;
+    height: 500%;
+    transform: translate(-25%, -25%);
   }
-`;
+  `;
 
-const SunBackgroundDiv = styled.div`
-  animation: ${backgroundAnimation} 10s alternate infinite;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  position: absolute;
+const SunBackgroundDiv = styled.div<{
+  time: number;
+  sunrise: number;
+  sunset: number;
+}>`
+  position: relative;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #ff6a00c4 0%,
+    #ff6a00c4 50%,
+    #ffffff00 100%
+  );
+
+  animation: ${sunBackgroundAnimation}
+    ${(props) => (props.sunset - props.sunrise) / 1000}s linear infinite;
+  animation-delay: ${(props) =>
+    `-${((props.time / 100) * (props.sunset - props.sunrise)) / 1000}s`};
   z-index: -1;
+
+  border-radius: 500%;
+  filter: blur(200px);
 `;
 
 const AuroraSunShineDiv = styled.div`
@@ -105,6 +118,7 @@ const AuroraSunReflectionDiv = styled.div<{ timePercent: number }>`
   position: absolute;
 `;
 
+/*
 export const Sun = () => {
   const [time, setTime] = useState(0);
   const [sunrise, setSunrise] = useState(0);
@@ -132,8 +146,81 @@ export const Sun = () => {
 
   return (
     <>
-      <SunBackgroundDiv />
       <AuroraSunDiv timePercent={time}>
+        <SunBackgroundDiv time={time} sunrise={sunrise} sunset={sunset} />
+        <AuroraSunShineDiv />
+      </AuroraSunDiv>
+      <AuroraSunReflectionDiv timePercent={time} />
+      <Flare
+        stepSize={0}
+        flareType={FlareType.LIGHT}
+        x={'70vw'}
+        y={'300px'}
+        size={100}
+        rotation={80}
+        animationOffset={14}
+      />
+      <Flare
+        stepSize={20}
+        flareType={FlareType.LIGHT}
+        x={'50vw'}
+        y={'50vw'}
+        size={150}
+        rotation={30}
+        animationOffset={3}
+      />
+      <DefaultFlares />
+    </>
+  );
+};
+*/
+
+export const Sun = () => {
+  const [time, setTime] = useState(0);
+  const [sunrise, setSunrise] = useState(0);
+  const [sunset, setSunset] = useState(0);
+  const [isIncreasing, setIsIncreasing] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { sunriseTime, sunsetTime } = await getSunTime();
+      setSunrise(sunriseTime);
+      setSunset(sunsetTime);
+      setTime(getSunlightPercentage(sunriseTime, sunsetTime));
+    };
+
+    if (sunrise === 0 || sunset === 0)
+      fetchData().catch((e) => console.error(e));
+
+    const interval = setInterval(() => {
+      setTime((prevTime) => {
+        if (isIncreasing) {
+          if (prevTime === 100) {
+            setIsIncreasing(false);
+            return 99;
+          } else {
+            return prevTime + 1;
+          }
+        } else {
+          if (prevTime === 0) {
+            setIsIncreasing(true);
+            return 1;
+          } else {
+            return prevTime - 1;
+          }
+        }
+      });
+    }, 100);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [sunset, sunrise, isIncreasing]);
+
+  return (
+    <>
+      <AuroraSunDiv timePercent={time}>
+        <SunBackgroundDiv time={time} sunrise={sunrise} sunset={sunset} />
         <AuroraSunShineDiv />
       </AuroraSunDiv>
       <AuroraSunReflectionDiv timePercent={time} />
