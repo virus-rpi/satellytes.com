@@ -12,7 +12,7 @@ export const AuroraRainyFlareColor = styled.div`
   background: linear-gradient(180deg, #231f67 0%, rgba(77, 121, 255, 0.27) 90%);
   position: absolute;
 `;
-export const Rain = (amount) => {
+export const Rain = ({ amount }) => {
   return (
     <>
       <AuroraRainyFlareColor />

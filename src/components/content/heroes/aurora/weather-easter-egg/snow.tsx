@@ -16,7 +16,7 @@ export const AuroraSnowyFlareColor = styled.div`
   position: absolute;
 `;
 
-export const Snow = (amount) => {
+export const Snow = ({ amount }) => {
   return (
     <>
       <AuroraSnowyFlareColor />
