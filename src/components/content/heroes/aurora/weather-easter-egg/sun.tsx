@@ -153,7 +153,6 @@ const AuroraSunReflectionDiv = styled.div<{ timePercent: number }>`
   position: absolute;
 `;
 
-/*
 export const Sun = () => {
   const [time, setTime] = useState(0);
   const [sunrise, setSunrise] = useState(0);
@@ -178,80 +177,6 @@ export const Sun = () => {
       clearInterval(interval);
     };
   }, [sunset, sunrise, time]);
-
-  return (
-    <>
-      <BackgroundDiv time={time} sunrise={sunrise} sunset={sunset} />
-      <AuroraSunDiv timePercent={time}>
-        <SunBackgroundDiv time={time} sunrise={sunrise} sunset={sunset} />
-        <AuroraSunShineDiv />
-      </AuroraSunDiv>
-      <AuroraSunReflectionDiv timePercent={time} />
-      <Flare
-        stepSize={0}
-        flareType={FlareType.LIGHT}
-        x={'70vw'}
-        y={'300px'}
-        size={100}
-        rotation={80}
-        animationOffset={14}
-      />
-      <Flare
-        stepSize={20}
-        flareType={FlareType.LIGHT}
-        x={'50vw'}
-        y={'50vw'}
-        size={150}
-        rotation={30}
-        animationOffset={3}
-      />
-      <DefaultFlares />
-    </>
-  );
-};
-*/
-
-export const Sun = () => {
-  const [time, setTime] = useState(0);
-  const [sunrise, setSunrise] = useState(0);
-  const [sunset, setSunset] = useState(0);
-  const [isIncreasing, setIsIncreasing] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { sunriseTime, sunsetTime } = await getSunTime();
-      setSunrise(sunriseTime);
-      setSunset(sunsetTime);
-      setTime(getSunlightPercentage(sunriseTime, sunsetTime));
-    };
-
-    if (sunrise === 0 || sunset === 0)
-      fetchData().catch((e) => console.error(e));
-
-    const interval = setInterval(() => {
-      setTime((prevTime) => {
-        if (isIncreasing) {
-          if (prevTime === 100) {
-            setIsIncreasing(false);
-            return 99;
-          } else {
-            return prevTime + 1;
-          }
-        } else {
-          if (prevTime === 0) {
-            setIsIncreasing(true);
-            return 1;
-          } else {
-            return prevTime - 1;
-          }
-        }
-      });
-    }, 100);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [sunset, sunrise, isIncreasing]);
 
   return (
     <>
