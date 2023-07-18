@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { WeatherType } from './aurora-types';
+import { WeatherType } from './weather-easter-egg/weather-types';
 import { Flare, FlareType } from './flare';
 import { Clouds } from './weather-easter-egg/clouds';
 import React from 'react';
@@ -61,6 +61,7 @@ export const AuroraContainer = styled.div`
 export const flaresByWeather: { [key in WeatherType] } = {
   [WeatherType.Sunny]: <Sun />,
   [WeatherType.Cloudy]: <Clouds amount={20} />,
+  [WeatherType.SlightlyCloudy]: <Clouds amount={5} />,
   [WeatherType.Snowy]: <Snow amount={50} />,
   [WeatherType.Rainy]: <Rain amount={550} />,
   [WeatherType.NotSet]: (

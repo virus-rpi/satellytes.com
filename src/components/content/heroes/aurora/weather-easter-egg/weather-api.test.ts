@@ -1,4 +1,4 @@
-import { WeatherType } from '../aurora-types';
+import { WeatherType } from './weather-types';
 import {
   convertTimeStringToTimestamp,
   getWeatherDescription,
