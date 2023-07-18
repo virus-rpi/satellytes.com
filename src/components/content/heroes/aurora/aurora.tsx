@@ -5,7 +5,8 @@ import AuroraBlurredBackgroundA from '../../../../assets/images/aurora/bg-blur-a
 import AuroraBlurredBackgroundB from '../../../../assets/images/aurora/bg-blur-b.png';
 import AuroraBlurredBackgroundC from '../../../../assets/images/aurora/bg-blur-c.png';
 
-import { AuroraType, WeatherType } from './aurora-types';
+import { AuroraType } from './aurora-types';
+import { WeatherType } from './weather-easter-egg/weather-types';
 import {
   flaresByWeather,
   AuroraForeground,

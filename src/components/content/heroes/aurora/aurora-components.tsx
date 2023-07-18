@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { WeatherType } from './aurora-types';
+import { WeatherType } from './weather-easter-egg/weather-types';
 import { Flare, FlareType } from './flare';
 import { Clouds } from './weather-easter-egg/clouds';
 import React from 'react';
