@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { getWeather } from './weather-easter-egg/weather-api';
 
 import AuroraBlurredBackgroundA from '../../../../assets/images/aurora/bg-blur-a.png';
@@ -13,6 +13,7 @@ import {
   AuroraContainer,
   AuroraBackground,
 } from './aurora-components';
+import { useWeather } from './weather-easter-egg/use-weather';
 
 export interface AuroraProps {
   type?: AuroraType;
@@ -20,7 +21,7 @@ export interface AuroraProps {
 }
 
 export const Aurora = ({ type, className }: AuroraProps) => {
-  const [weather, setWeather] = useState(WeatherType.NotSet);
+  const { weather, setWeather } = useWeather();
 
   const toggleWeather = () => {
     if (weather === WeatherType.NotSet) {
